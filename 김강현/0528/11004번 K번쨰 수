@@ -1,0 +1,74 @@
+package day03;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.Random;
+
+public class ex03 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+        // 첫 번째 줄에서 N과 K를 입력 받음
+        StringTokenizer st = new StringTokenizer(in.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+
+        // 두 번째 줄에서 N개의 수를 입력 받음
+        st = new StringTokenizer(in.readLine());
+        int[] A = new int[N];
+        for (int i = 0; i < N; i++) {
+            A[i] = Integer.parseInt(st.nextToken());
+        }
+
+        // K번째 수를 찾기 위해서 퀵 셀렉트 알고리즘 사용
+        quickSort(A, 0, N - 1, K - 1);
+
+        // 결과 출력
+        System.out.println(A[K - 1]);
+    }
+
+    // 퀵 셀렉트 알고리즘을 구현한 메소드
+    public static void quickSort(int[] A, int S, int E, int K) {
+        if (S < E) {
+            int pivot = partition(A, S, E);
+
+            if (pivot == K) {
+                // K번째 수가 피벗이면 더 이상 구할 필요 없음
+                return;
+            } else if (K < pivot) {
+                // K가 pivot보다 작으면 왼쪽 그룹만 정렬 수행
+                quickSort(A, S, pivot - 1, K);
+            } else {
+                // K가 pivot보다 크면 오른쪽 그룹만 정렬 수행
+                quickSort(A, pivot + 1, E, K);
+            }
+        }
+    }
+
+    // 배열을 분할하는 메소드
+    public static int partition(int[] A, int S, int E) {
+        int pivotIndex = S + new Random().nextInt(E - S + 1);
+        swap(A, pivotIndex, E);
+        int pivot = A[E];
+        int i = S;
+
+        for (int j = S; j < E; j++) {
+            if (A[j] <= pivot) {
+                swap(A, i, j);
+                i++;
+            }
+        }
+
+        swap(A, i, E);
+        return i;
+    }
+
+    // 배열의 두 요소를 교환하는 메소드
+    public static void swap(int[] A, int i, int j) {
+        int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
+    }
+}
