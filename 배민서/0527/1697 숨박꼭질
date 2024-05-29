@@ -1,0 +1,64 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+    static int N, K;
+    static int[] dx = {-1, 1, 2};
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer tk =  new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(tk.nextToken());
+        K = Integer.parseInt(tk.nextToken());
+
+        System.out.println(BFS());
+    }
+
+    public static int BFS() {
+        Queue<Pos> queue = new LinkedList<>();
+        boolean[] visited = new boolean[100001];
+
+        queue.add(new Pos(N, 0));
+        visited[N] = true;
+
+        while (!queue.isEmpty()) {
+            Pos p = queue.poll();
+
+            if(p.x == K) {
+                return p.moves;
+            }
+            for (int i = 0; i < 3; i++) {
+                int newX = (i < 2) ? p.x + dx[i] : p.x * dx[i];
+
+                if(isMovable(newX) && !visited[newX]) {
+                    visited[newX] = true;
+                    queue.add(new Pos(newX, p.moves + 1));
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public static boolean isMovable(int x) {
+        if(x < 0 || x > 100000) {
+            return false;
+        }
+
+        return true;
+    }
+
+    static class Pos {
+        int x;
+        int moves;
+
+        public Pos(int x, int moves) {
+            this.x = x;
+            this.moves = moves;
+        }
+    }
+}
