@@ -27,7 +27,6 @@ else:
                 visited.add(tupleNode[:N])
 
 print(count)
-
 # BFS로 푼 문제 set구조로된 visited에 방문을 기록해나가면서 풀었다
 # 모든 가짓수를 다 봐야하니 재귀를 사용하자
 #
