@@ -7,7 +7,7 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         reader.readLine();
         String[] str = reader.readLine().split(" ");
-        // 형 변환
+        // 형 변환  
         int[] i = Arrays.stream(str)
                 .mapToInt(Integer::parseInt)
                 .toArray();
