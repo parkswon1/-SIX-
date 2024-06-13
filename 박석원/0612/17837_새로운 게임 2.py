@@ -28,6 +28,7 @@ def changV(v):
         return 2
 
 
+
 # 0흰색, 1 빨간색, 2 파란색
 flag = 0
 while(1):
